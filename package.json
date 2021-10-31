@@ -1,0 +1,27 @@
+{
+  "name": "quickcrypt",
+  "version": "1.0.0",
+  "description": "a cli for encrypted password / api keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TinyboxSoftware/QuickCrypt.git"
+  },
+  "keywords": [
+    "password",
+    "cli"
+  ],
+  "author": "Mykal Machon",
+  "license": "SEE LICENSE",
+  "bugs": {
+    "url": "https://github.com/TinyboxSoftware/QuickCrypt/issues"
+  },
+  "homepage": "https://github.com/TinyboxSoftware/QuickCrypt#readme",
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "typescript": "^4.4.4"
+  }
+}
