@@ -4,7 +4,9 @@
   "description": "a cli for encrypted password / api keys",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "build": "tsc",
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,14 @@
   },
   "homepage": "https://github.com/TinyboxSoftware/QuickCrypt#readme",
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
+    "jest": "^27.3.1",
+    "prisma": "^3.3.0",
+    "ts-jest": "^27.0.7",
     "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "aes256": "^1.1.0"
   }
 }
