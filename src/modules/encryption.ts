@@ -5,7 +5,7 @@ import crypto from 'crypto';
 const randomIv = crypto.randomBytes(16);
 const ivString = randomIv.toString('hex').slice(0, 16);
 
-const hashFunction = (key: string) => {
+export const hashFunction = (key: string) => {
   const hasher = crypto.createHash('sha256');
   hasher.update(key);
   return hasher.digest('hex').substr(0, 32);
