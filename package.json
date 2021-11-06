@@ -2,7 +2,8 @@
   "name": "quickcrypt",
   "version": "1.0.0",
   "description": "a cli for encrypted password / api keys",
-  "main": "index.js",
+  "exports": "./index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "test": "jest",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/TinyboxSoftware/QuickCrypt#readme",
   "devDependencies": {
     "@types/jest": "^27.0.2",
+    "@types/lowdb": "^1.0.11",
     "@types/node": "^16.11.6",
     "jest": "^27.3.1",
     "ts-jest": "^27.0.7",

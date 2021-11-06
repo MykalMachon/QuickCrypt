@@ -1,7 +1,9 @@
 // TODO: handles inputs and the "interface" portion of the app
 import { Command } from 'commander';
+import {initDb} from './modules/db.js'
 
 const program = new Command();
+const db = initDb();
 
 program
   .option('-l --login', 'you should login...')
