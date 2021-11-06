@@ -2,12 +2,13 @@ import { join } from 'path';
 import { promises } from 'fs';
 import * as lowdb from 'lowdb';
 import { homedir } from 'os';
+import { Low } from 'lowdb';
 
 /**
  * fix this it really sucks at doing its job
  * @returns db: LowDB
  */
-export const initDb = async () => {
+export const initDb = async (): Promise<Low> => {
   const dbFile = join(homedir(), '/.quickcrypt/db.json');
   try {
     await promises.access(dbFile);
