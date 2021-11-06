@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // TODO: handles inputs and the "interface" portion of the app
 import { Command } from 'commander';
 import inquirer from 'inquirer';
@@ -8,7 +10,6 @@ import { decrypt, encrypt } from './modules/encryption.js';
 const program = new Command();
 
 program
-  .option('-l --login', 'you should login...')
   .option('-p --password <name>', 'this should list a password')
   .option('-lp --list-passwords', 'this should list all passwords')
   .option('-cp --create-password', 'this should input a new password');
@@ -50,6 +51,7 @@ const handleInputs = async (options: any) => {
     // decode the password
     const password = decrypt(answers.password.value, 'test-test', answers.password.iv);
     console.log(password);
+    return;
   }
 
   if (options.createPassword) {
@@ -67,6 +69,7 @@ const handleInputs = async (options: any) => {
     db.data.passwords.push({ key: answers.passName, value: encryptedPass, iv });
     await db.write();
     console.log('Password created!');
+    return;
   }
 };
 

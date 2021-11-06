@@ -2,7 +2,7 @@
   "name": "quickcrypt",
   "version": "1.0.0",
   "description": "a cli for encrypted password / api keys",
-  "exports": "./index.js",
+  "exports": "./build/app.js",
   "type": "module",
   "scripts": {
     "dev": "tsc --watch",
@@ -23,6 +23,9 @@
   "license": "SEE LICENSE",
   "bugs": {
     "url": "https://github.com/TinyboxSoftware/QuickCrypt/issues"
+  },
+  "bin": {
+    "quickcrypt": "./build/app.js"
   },
   "homepage": "https://github.com/TinyboxSoftware/QuickCrypt#readme",
   "devDependencies": {
