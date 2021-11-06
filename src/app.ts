@@ -14,3 +14,8 @@ program.parse(process.argv);
 
 const options = program.opts();
 if (options.login) console.log(options);
+
+if(options.newPassword){
+  console.log('creating a new password')
+  console.log(options)
+}

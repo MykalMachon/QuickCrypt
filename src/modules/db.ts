@@ -11,14 +11,9 @@ export const initDb = async () => {
   const dbFile = join(homedir(), '/.quickcrypt/db.json');
   try {
     await promises.access(dbFile);
-    const adapter = new lowdb.JSONFile(dbFile);
-    const db = new lowdb.Low(adapter);
-    await db.read();
-    return db;
   } catch (err) {
-    console.error('failed to access home dir')
-    console.error(err);
     await createAppFolder();
+  } finally {
     const adapter = new lowdb.JSONFile(dbFile);
     const db = new lowdb.Low(adapter);
     await db.read();
@@ -39,8 +34,7 @@ const createAppFolder = async () => {
       } catch(err){ 
        await promises.mkdir(appDir); 
       }
-      await promises.open(join(appDir, './db.json'), 'w');
-      await promises.appendFile(join(appDir, './db.json'), '{"meta": {}, "passwords": []}')
+      await promises.writeFile(join(appDir, './db.json'), '{"meta": {}, "passwords": []}', {flag: 'w+'})
       return resolve('file created')
     } catch (err) {
       console.error('failed to create home dir');
