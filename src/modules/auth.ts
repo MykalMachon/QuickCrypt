@@ -62,8 +62,10 @@ export const checkAuthenticated = async () => {
   const db: Low<any> = await initDb();
   const lastLogin = new Date(db.data.meta.lastLogin);
   // 2. if login time is greater than 5 minutes ago, authenticate
-  const timeDiff = new Date().getMilliseconds() - lastLogin.getMilliseconds();
+  // @ts-ignore
+  const timeDiff = new Date() - lastLogin;
   const timeDiffInMinutes = Math.floor(timeDiff / 1000 / 60);
+  console.log(`Time diff in minutes is ${timeDiffInMinutes}`);
   // 3. return true
   return timeDiffInMinutes <= 5;
 };

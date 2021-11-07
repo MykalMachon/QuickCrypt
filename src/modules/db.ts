@@ -30,16 +30,20 @@ const createAppFolder = async () => {
   return new Promise(async (resolve, reject) => {
     try {
       const appDir = join(homedir(), '/.quickcrypt/');
-      try{
-        await promises.access(appDir)
-      } catch(err){ 
-       await promises.mkdir(appDir); 
+      try {
+        await promises.access(appDir);
+      } catch (err) {
+        await promises.mkdir(appDir);
       }
-      await promises.writeFile(join(appDir, './db.json'), '{"meta": {}, "passwords": []}', {flag: 'w+'})
-      return resolve('file created')
+      await promises.writeFile(
+        join(appDir, './db.json'),
+        '{"meta": {}, "passwords": []}',
+        { flag: 'w+' }
+      );
+      return resolve('file created');
     } catch (err) {
       console.error('failed to create home dir');
       return reject(err);
     }
-  })
+  });
 };

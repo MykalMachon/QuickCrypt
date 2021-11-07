@@ -4,16 +4,13 @@ import inquirer from 'inquirer';
 // internal deps
 import { initDb } from './modules/db.js';
 import { encrypt, decrypt } from './modules/encryption.js';
-import { authenticate, checkAuthenticated, createMasterPassword } from './modules/auth.js';
+import { authenticate, createMasterPassword } from './modules/auth.js';
 
-export const isAuthenticated = async (next: Function, params: Array<any> = []) => {
+export const isAuthenticated = async (
+  next: Function,
+  params: Array<any> = []
+) => {
   const db: Low<any> = await initDb();
-  // check if authed in the last 5 minutes
-  const isAuthed = await checkAuthenticated()
-  if(isAuthed) {
-    next(...params);
-    return;
-  }
   // check if the user has a password.
   const hasPassword = db.data.meta.passHash != null;
   // if the user does have a password, auth as normal
@@ -22,7 +19,7 @@ export const isAuthenticated = async (next: Function, params: Array<any> = []) =
       { type: 'password', name: 'masterPass', message: 'Master Password: ' },
     ]);
     const result = await authenticate(masterPass);
-    if (result.state == 'success') next(...params);
+    if (result.state == 'success') next(masterPass, ...params);
     if (result.state == 'failed') console.log('wrong password. try again!');
     return;
   } else {
@@ -34,27 +31,31 @@ export const isAuthenticated = async (next: Function, params: Array<any> = []) =
   }
 };
 
-export const createPassword = async () => {
+export const createPassword = async (encryptKey: string) => {
   const db: Low<any> = await initDb();
 
   console.log(`creating a new password`);
   const answers = await inquirer.prompt([
     { type: 'input', name: 'passName', message: 'Password Name: ' },
-    { type: 'input', name: 'passVal', message: 'Password: ' },
+    { type: 'password', name: 'passVal', message: 'Password: ' },
     {
-      type: 'input',
+      type: 'password',
       name: 'passValRepeat',
       message: 'Repeat Password: ',
     },
   ]);
-  const { value: encryptedPass, iv } = encrypt(answers.passVal, 'test-test');
+  if(answers.passVal != answers.passValRepeat){
+    console.log("passowrds don't match, try again!")
+    createPassword(encryptKey);
+    return; 
+  }
+  const { value: encryptedPass, iv } = encrypt(answers.passVal, encryptKey);
   db.data.passwords.push({ key: answers.passName, value: encryptedPass, iv });
   await db.write();
   console.log('Password created!');
-  return;
 };
 
-export const listAllPasswords = async () => {
+export const listAllPasswords = async (encryptKey: string) => {
   const db: Low<any> = await initDb();
   // get a list of passwords
   const passwordList =
@@ -81,19 +82,19 @@ export const listAllPasswords = async () => {
   // decode the password
   const password = decrypt(
     answers.password.value,
-    'test-test',
+    encryptKey,
     answers.password.iv
   );
   console.log(password);
   return;
 };
 
-export const getPasswordByKey = async (key: string) => {
+export const getPasswordByKey = async (encryptKey: string, key: string) => {
   const db: Low<any> = await initDb();
   try {
     const passIdx = db.data.passwords.findIndex((pw: any) => pw.key === key);
     const { value, iv } = db.data.passwords[passIdx];
-    const decryptedPass = decrypt(value, 'test-test', iv);
+    const decryptedPass = decrypt(value, encryptKey, iv);
     console.log(decryptedPass);
   } catch (err) {
     console.log('no such password exists. try listing all passwords with -lp');
