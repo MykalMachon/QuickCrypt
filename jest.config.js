@@ -1,9 +1,9 @@
-module.exports = {
-  transform: {
-    '^.+\\.ts?$': 'ts-jest',
-  },
+export default {
+  preset: 'ts-jest',
   testEnvironment: 'node',
-  testRegex: './src/.*\\.(test|spec)?\\.(ts|ts)$',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  roots: ['<rootDir>/src'],
+  testMatch: ['<rootDir>/**/*.test.ts'],
+  testPathIgnorePatterns: ['/node_modules/'],
+  coverageDirectory: './coverage',
+  globals: { 'ts-jest': { diagnostics: false } },
+  transform: {},
 };

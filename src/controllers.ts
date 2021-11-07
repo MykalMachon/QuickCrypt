@@ -28,6 +28,7 @@ export const isAuthenticated = async (
       { type: 'password', name: 'newPass', message: 'New Password: ' },
     ]);
     createMasterPassword(newPass);
+    next(newPass, ...params);
   }
 };
 
