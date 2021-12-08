@@ -24,4 +24,4 @@ After some thinking, a simple password manager for the CLI seemed like a good fi
 QuickCrypt uses AES256 encryption to securely store your passwords.
 All passwords are encrypted using your master password as the key.
 
-**You set your master password the first time you run QuickCrypt, if you forget it say goodbye to your passwords 👋🏻**
+**You set your master password the first time you run QuickCrypt, if you forget it say goodbye to your passwords 👋**
