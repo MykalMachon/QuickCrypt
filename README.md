@@ -14,10 +14,11 @@ quickcrypt --help
 
 ## Inpsiration
 
-I work with a lot of API keys, database creds, temporary passwords, etc. and traditional password managers don't really seem to fit my use case.
-I wanted something I could use from within an IDE like VS Code, or PyCharm.
+I work with a lot of API keys, database creds, temporary passwords, etc. and traditional password managers don't really seem to fit my use case as they're all GUI based.
+I wanted something I could use from within an IDE like VS Code, or PyCharm, and in the terminal.
 
-After some thinking, a simple password manager for the CLI seemed like a good first step.
+Quickcrypt is meant to be an exceedingly simple tool to store, and retrieve passwords from the terminal. 
+In the future, I may look at options to "export" certain passwords as environment variables, so they can be used in your development environment directly. 
 
 ## How's it work
 
