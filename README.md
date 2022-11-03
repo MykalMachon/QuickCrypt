@@ -1,4 +1,4 @@
-# QuickCrypt 🔐
+# QuickCrypt (GO Edition) 🔐
 
 a CLI tool to quickly store, and retrieve passwords, api keys, and other private stuff.
 
